@@ -1029,6 +1029,71 @@ def _format_skill_by_cv_lang(skill_name: str, is_vi_cv: bool) -> str:
     return s
 
 
+def _normalize_skill_dedup_key(skill_name: str) -> str:
+    """Chuẩn hóa tên kỹ năng về dạng gốc để phát hiện 2 kỹ năng trùng nhau (bất kể hoa/thường, dấu câu hay từ đệm)."""
+    s = (skill_name or "").lower().strip()
+    if not s:
+        return ""
+    # Chuẩn hóa các hậu tố framework JS phổ biến (ReactJS / React.js -> react, Node.js / NodeJS -> node...)
+    s = re.sub(r'\b(react|node|vue|next|nuxt|nest|express|angular)\.?\s*js\b', r'\1', s)
+    # Lược bỏ các từ đệm đầu/cuối phổ biến (Kỹ năng..., Lập trình..., ...Skills, MS/Microsoft...)
+    prefix_pat = r'^(?:kỹ năng|ky nang|lập trình|lap trinh|sử dụng|su dung|thành thạo|thanh thao|kiến thức|kien thuc|hiểu biết|hieu biet|công cụ|cong cu|phần mềm|phan mem|ngôn ngữ|ngon ngu|microsoft|ms)\s+'
+    suffix_pat = r'\s+(?:cơ bản|co ban|nâng cao|nang cao|chuyên sâu|chuyen sau|skills?|proficiency|basic|advanced|intermediate)$'
+    for _ in range(2):
+        s = re.sub(prefix_pat, '', s).strip()
+        s = re.sub(suffix_pat, '', s).strip()
+    s = re.sub(r'\s+', ' ', s)
+    return s
+
+
+def _is_duplicate_cv_skill(new_skill: str, existing_skill: str) -> bool:
+    """Kiểm tra 2 kỹ năng trích xuất từ CV có trùng nhau hay không (chỉ giữ lại 1 kỹ năng duy nhất)."""
+    if not new_skill or not existing_skill:
+        return False
+    a_raw = new_skill.lower().strip()
+    b_raw = existing_skill.lower().strip()
+    if a_raw == b_raw:
+        return True
+
+    k1 = _normalize_skill_dedup_key(new_skill)
+    k2 = _normalize_skill_dedup_key(existing_skill)
+    if not k1 or not k2:
+        return False
+    if k1 == k2:
+        return True
+
+    # So sánh bỏ toàn bộ dấu cách, dấu gạch ngang, dấu chấm (VD: "Problem-solving" == "Problem Solving", "Team work" == "Teamwork")
+    alnum1 = re.sub(r'[\s\.\-_/&+,()]+', '', k1)
+    alnum2 = re.sub(r'[\s\.\-_/&+,()]+', '', k2)
+    if alnum1 and alnum1 == alnum2:
+        return True
+
+    # Kiểm tra nếu 1 kỹ năng là tập con nguyên từ của kỹ năng kia (loại trừ Java vs JavaScript, C vs C++/C#)
+    shorter, longer = (k1, k2) if len(k1) <= len(k2) else (k2, k1)
+    if len(shorter) >= 3 and shorter not in ("c", "r"):
+        if not (shorter == "java" and "javascript" in longer):
+            if re.search(rf'(?<![\w+#]){re.escape(shorter)}(?![\w+#])', longer):
+                return True
+
+    # Kiểm tra trùng khái niệm trong từ điển kỹ năng chuẩn
+    return skills_are_matching(new_skill, existing_skill)
+
+
+def _add_unique_cv_skill(target_dict: dict, skill_name: str, score: int = 4) -> bool:
+    """Chỉ thêm kỹ năng vào danh sách nếu chưa có kỹ năng nào trùng lặp trong target_dict."""
+    clean_name = (skill_name or "").strip()
+    if not clean_name:
+        return False
+    for existing_k in list(target_dict.keys()):
+        if _is_duplicate_cv_skill(clean_name, existing_k):
+            if score > target_dict[existing_k]:
+                target_dict[existing_k] = score
+            print(f"[AI CV EXTRACT] Bỏ qua kỹ năng trùng lặp: '{clean_name}' (đã có '{existing_k}')", flush=True)
+            return False
+    target_dict[clean_name] = score
+    return True
+
+
 @app.post("/profiles/extract-cv/")
 def create_profile_from_cv(cv_input: CVInput, db: Session = Depends(get_db)):
     raw_text = (cv_input.cv_text or "").strip()
@@ -1070,6 +1135,7 @@ IMPORTANT RULE:
 1. VALIDATION: If the text below is a junk file, exam paper, invoice, novel, or NOT a valid CV/Resume, return ONLY: {{"is_cv": false}}
 2. IF IT IS A VALID CV, return "is_cv": true and extract all specialized domain/hard skills mentioned in the CV.
 3. If the CV does NOT contain specialized domain skills (or only has general experience), search for SOFT SKILLS listed by the candidate and include them in "skills" and "soft_skills" in the SAME language as the CV.
+4. DEDUPLICATION: Do NOT output duplicate or synonymous skills. If two skills refer to the same competency, keep ONLY ONE canonical skill name.
 Output ONLY a valid JSON object without any explanation.
 CV TEXT:
 {cv_text_short}
@@ -1127,16 +1193,17 @@ REQUIRED JSON FORMAT:
             if s:
                 formatted_s = _format_skill_by_cv_lang(str(s).strip(), is_vi_cv)
                 if formatted_s:
-                    final_skills[formatted_s] = 4
+                    _add_unique_cv_skill(final_skills, formatted_s, 4)
     elif isinstance(raw_skills, dict):
         for k, v in raw_skills.items():
             if k:
                 formatted_k = _format_skill_by_cv_lang(str(k).strip(), is_vi_cv)
                 if formatted_k:
                     try:
-                        final_skills[formatted_k] = max(1, min(5, int(float(v))))
+                        parsed_score = max(1, min(5, int(float(v))))
                     except Exception:
-                        final_skills[formatted_k] = 4
+                        parsed_score = 4
+                    _add_unique_cv_skill(final_skills, formatted_k, parsed_score)
 
     # Phân tách kỹ năng chuyên ngành và kỹ năng mềm theo đúng ngôn ngữ của CV
     catalog_to_check = SOFT_SKILLS_VI if is_vi_cv else SOFT_SKILLS_EN
@@ -1146,8 +1213,8 @@ REQUIRED JSON FORMAT:
 
     for sk in domain_detected:
         localized_sk = _format_skill_by_cv_lang(sk, is_vi_cv)
-        if localized_sk and not any(skills_are_matching(localized_sk, existing_k) for existing_k in final_skills.keys()):
-            final_skills[localized_sk] = 4
+        if localized_sk:
+            _add_unique_cv_skill(final_skills, localized_sk, 4)
         if len(final_skills) >= 12:
             break
 
@@ -1161,14 +1228,14 @@ REQUIRED JSON FORMAT:
             for s_sk in ai_soft_list:
                 if s_sk and str(s_sk).strip():
                     s_name = _format_skill_by_cv_lang(str(s_sk).strip(), is_vi_cv)
-                    if s_name and not any(skills_are_matching(s_name, existing_k) for existing_k in final_skills.keys()):
-                        final_skills[s_name] = 4
+                    if s_name:
+                        _add_unique_cv_skill(final_skills, s_name, 4)
 
         soft_detected = extract_soft_skills_from_text(raw_text, max_skills=10, lang=cv_lang)
         for s_sk in soft_detected:
             localized_soft = _format_skill_by_cv_lang(s_sk, is_vi_cv)
-            if localized_soft and not any(skills_are_matching(localized_soft, existing_k) for existing_k in final_skills.keys()):
-                final_skills[localized_soft] = 4
+            if localized_soft:
+                _add_unique_cv_skill(final_skills, localized_soft, 4)
             if len(final_skills) >= 12:
                 break
 

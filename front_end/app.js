@@ -1056,10 +1056,28 @@ if (cvFileInput) {
                 } else if (data && data.skills_json && typeof data.skills_json === 'object') {
                     skillsObj = data.skills_json;
                 }
-                window.currentUploadedSkills = Object.keys(skillsObj).map(skillName => ({
-                    topic: skillName,
-                    score: skillsObj[skillName]
-                }));
+                const normalizeSkillKeyClient = (str) => String(str || '')
+                    .toLowerCase()
+                    .replace(/\b(react|node|vue|next|nuxt|nest|express|angular)\.?\s*js\b/g, '$1')
+                    .replace(/^(kỹ năng|ky nang|lập trình|lap trinh|sử dụng|su dung|thành thạo|thanh thao|microsoft|ms)\s+/i, '')
+                    .replace(/\s+(cơ bản|co ban|nâng cao|nang cao|skills?|proficiency)$/i, '')
+                    .replace(/[\s.\-_/&+,()]+/g, '')
+                    .trim();
+
+                const uniqueUploadedSkills = [];
+                const seenSkillKeys = new Set();
+                Object.keys(skillsObj).forEach(skillName => {
+                    const cleanName = String(skillName || '').trim();
+                    const dedupKey = normalizeSkillKeyClient(cleanName);
+                    if (cleanName && dedupKey && !seenSkillKeys.has(dedupKey)) {
+                        seenSkillKeys.add(dedupKey);
+                        uniqueUploadedSkills.push({
+                            topic: cleanName,
+                            score: skillsObj[skillName]
+                        });
+                    }
+                });
+                window.currentUploadedSkills = uniqueUploadedSkills;
 
                 if (window.currentUploadedSkills.length === 0) {
                     if (typeof showToast === 'function') {
@@ -1157,6 +1175,18 @@ if (btnAddCustomSkill && customSkillInput) {
         
         if (!window.currentUploadedSkills) {
             window.currentUploadedSkills = [];
+        }
+
+        const normNew = newSkillName.toLowerCase().replace(/[\s.\-_/&+,()]+/g, '');
+        const isDuplicateSkill = window.currentUploadedSkills.some(
+            item => String(item.topic || '').toLowerCase().replace(/[\s.\-_/&+,()]+/g, '') === normNew
+        );
+        if (isDuplicateSkill) {
+            if (typeof showToast === 'function') {
+                showToast('Kỹ năng đã tồn tại', `Kỹ năng "${newSkillName}" đã có trong danh sách!`, 'warning');
+            }
+            customSkillInput.value = "";
+            return;
         }
         
         window.currentUploadedSkills.push({ topic: newSkillName, score: 3 });
