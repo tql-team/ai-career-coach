@@ -1,0 +1,38 @@
+# SPDX-License-Identifier: MIT
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-career-coach"
+version = "0.2.0"
+description = "Hệ thống Định hướng Nghề nghiệp Đa ngành, Lập Lộ trình Học tập & Phỏng vấn Thử AI (Qwen 3.5:4b)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "AI Career Coach Team (TQL)"}
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Framework :: FastAPI"
+]
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.29.0",
+    "sqlalchemy>=2.0.0",
+    "psycopg2-binary>=2.9.9",
+    "pydantic>=2.0.0",
+    "ollama>=0.2.0"
+]
+
+[tool.setuptools]
+py-modules = ["main", "database", "models", "schemas"]
+
+[project.urls]
+Homepage = "https://tql-team.github.io/ai-career-coach/"
+Repository = "https://github.com/tql-team/ai-career-coach.git"
+Issues = "https://github.com/tql-team/ai-career-coach/issues"
+Changelog = "https://github.com/tql-team/ai-career-coach/blob/main/docs/CHANGELOG.md"

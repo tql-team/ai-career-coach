@@ -15,8 +15,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-# Sao chép mã nguồn Backend (các file thừa đã được loại trừ trong .dockerignore)
-COPY main.py .
+# Sao chép mã nguồn Backend Python (main.py, database.py, models.py, schemas.py)
+COPY *.py .
 
 # Cổng FastAPI Backend
 EXPOSE 8000

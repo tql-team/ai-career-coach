@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // file: data.js
 
 const DEFAULT_SAMPLE_PROFILES = [

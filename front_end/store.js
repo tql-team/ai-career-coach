@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // store.js - Quản lý trạng thái ứng dụng và tự động đồng bộ LocalStorage/SessionStorage
 const AppStore = {
     state: {

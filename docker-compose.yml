@@ -36,7 +36,7 @@ services:
   # 3. Backend API (FastAPI + SQLAlchemy + Ollama Qwen 3.5:4b)
   backend:
     build:
-      context: .
+      context: ./back_end
       dockerfile: Dockerfile
     container_name: career_coach_backend
     restart: unless-stopped

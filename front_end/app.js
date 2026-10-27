@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 /**
  * AI Career Coach - Pure Vanilla JavaScript Application Logic
  * Full SVG, Khóa Phỏng Vấn, Điều kiện Tưới Cây, Trừ điểm khi sai, Đồng nhất biến API/Mock
