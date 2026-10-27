@@ -148,18 +148,18 @@ docker compose logs --tail=100 backend
 
 ## 7. Hướng dẫn Gỡ cài đặt & Dọn dẹp hệ thống (Uninstallation)
 
-### Mức 1: Dừng và gỡ Container (Giữ lại dữ liệu Database và Model AI đã tải)
+### Bước 1: Dừng và gỡ Container (Giữ lại dữ liệu Database và Model AI đã tải)
 ```bash
 docker compose down
 # Hoặc: make down
 ```
 
-### Mức 2: Gỡ cài đặt Container + Xóa sạch dữ liệu Database & Volume (Reset dữ liệu về mới tinh)
+### Bước 2: Gỡ cài đặt Container + Xóa sạch dữ liệu Database & Volume (Reset dữ liệu về mới tinh)
 ```bash
 docker compose down -v
 ```
 
-### Mức 3: Gỡ cài đặt HOÀN TOÀN (Xóa Container + Xóa Volume + Xóa toàn bộ Docker Images + Xóa thư mục code)
+### Bước 3: Gỡ cài đặt HOÀN TOÀN (Xóa Container + Xóa Volume + Xóa toàn bộ Docker Images + Xóa thư mục code)
 ```bash
 # Bước 1: Xóa toàn bộ Container, Volume và Docker Images đã biên dịch
 docker compose down -v --rmi all --remove-orphans
@@ -259,10 +259,6 @@ Dự án duy trì đầy đủ các kênh thông tin và giao tiếp công khai 
 
 * **Kho mã nguồn chính thức (GitHub Repository)**:  
   [https://github.com/tql-team/ai-career-coach.git](https://github.com/tql-team/ai-career-coach.git)
-* **Trang Phát hành Chính thức (GitHub Releases - Bản phát hành đầu tiên)**:  
-  [https://github.com/tql-team/ai-career-coach/releases](https://github.com/tql-team/ai-career-coach/releases)
-* **Nhóm thư Công khai & Thông báo Phát hành (Google Group Mailing List)**:  
-  [https://groups.google.com/g/ai-career-coach-tql](https://groups.google.com/g/ai-career-coach-tql) (`ai-career-coach-tql@googlegroups.com`)  
   *(Xem nội dung thông báo phát hành tại [docs/RELEASE_ANNOUNCEMENT.md](./docs/RELEASE_ANNOUNCEMENT.md)).*
 * **Trình Quản lý Lỗi Công khai (Bug Tracker - GitHub Issues)**:  
   [https://github.com/tql-team/ai-career-coach/issues](https://github.com/tql-team/ai-career-coach/issues)
