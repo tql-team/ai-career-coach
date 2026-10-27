@@ -26,5 +26,5 @@ Dán log tại đây...
 
 ## 5. Môi trường thực thi
 - Hệ điều hành (Windows / macOS / Linux):
-- Phiên bản Docker Desktop:
-- Phiên bản dự án (`v0.1.0` / `v0.2.0`):
+- Docker Desktop:
+- Trình duyệt sử dụng:

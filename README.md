@@ -235,7 +235,7 @@ ai-career-coach/
 │   ├── INSTALL.md                   # Hướng dẫn biên dịch, cài đặt, chạy out-of-source & gỡ cài đặt
 │   ├── ARCHITECTURE.md              # Tài liệu kiến trúc 4 Containers & sơ đồ 7 bảng Database
 │   ├── API.md                       # Đặc tả 20 REST API Endpoints & định dạng Log AI
-│   ├── CHANGELOG.md                 # Nhật ký phát hành phiên bản đầu tiên
+│   ├── CHANGELOG.md                 # Nhật ký quá trình phát triển và thay đổi (20/10 – 27/10)
 │   ├── CONTRIBUTING.md              # Hướng dẫn quy trình Git, nhánh & Pull Request cho người mới
 │   ├── THIRD_PARTY_LICENSES.md      # Bảng kiểm tra tương thích giấy phép thư viện bên thứ ba
 │   └── RELEASE_ANNOUNCEMENT.md      # Thông báo phát hành trên Nhóm thư công khai
