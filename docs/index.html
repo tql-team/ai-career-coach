@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Career Coach (v0.2.0) — Cổng Tài Liệu & Website Chính Thức</title>
+  <title>AI Career Coach: Trợ lý định hướng nghề nghiệp và luyện phỏng vấn thông minh</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
   <header class="bg-indigo-700 text-white py-12 px-6 shadow-md">
     <div class="max-w-5xl mx-auto">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-600 text-xs font-semibold border border-indigo-400 mb-4">
-        Phiên bản phát hành: v0.2.0 • Giấy phép MIT • Docker 100%
+        Bản phát hành đầu tiên • Giấy phép MIT • Docker 100%
       </div>
       <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
-        🌱 AI Career Coach — Hệ Thống Định Hướng Nghề Nghiệp Đa Ngành
+        AI Career Coach: Trợ lý định hướng nghề nghiệp và luyện phỏng vấn thông minh
       </h1>
       <p class="mt-3 text-indigo-100 text-base sm:text-lg max-w-3xl">
         Ứng dụng mô hình ngôn ngữ lớn <strong>Qwen 3.5:4b (Ollama)</strong> kết hợp <strong>FastAPI</strong>, <strong>PostgreSQL 15</strong> và <strong>Gamification</strong> hỗ trợ trích xuất CV song ngữ (Việt/Anh), phân tích độ khớp JD đa ngành, lập lộ trình học tập theo giờ rảnh (UTC+7) và luyện phỏng vấn STAR.
@@ -23,7 +23,7 @@
           Kho mã nguồn GitHub
         </a>
         <a href="https://github.com/tql-team/ai-career-coach/releases" class="px-4 py-2 rounded-lg bg-indigo-600 text-white font-semibold text-sm border border-indigo-400 hover:bg-indigo-500">
-          Bản phát hành (v0.1.0 / v0.2.0)
+          Bản phát hành đầu tiên
         </a>
         <a href="https://github.com/tql-team/ai-career-coach/issues" class="px-4 py-2 rounded-lg bg-indigo-600 text-white font-semibold text-sm border border-indigo-400 hover:bg-indigo-500">
           Báo lỗi (Bug Tracker)
@@ -39,7 +39,7 @@
     <section class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
       <h2 class="text-xl font-bold text-slate-900 mb-3">1. Cài đặt nhanh bằng Docker &amp; GNU Make</h2>
       <p class="text-sm text-slate-600 mb-4">
-        Hệ thống được đóng gói hoàn chỉnh thành 4 контейners (<code>career_coach_pg</code>, <code>career_coach_ollama</code>, <code>career_coach_backend</code>, <code>career_coach_frontend</code>). Không cần cài đặt Python, Node.js hay PostgreSQL trên máy thật.
+        Hệ thống được đóng gói hoàn chỉnh thành 4 containers (<code>career_coach_pg</code>, <code>career_coach_ollama</code>, <code>career_coach_backend</code>, <code>career_coach_frontend</code>). Không cần cài đặt Python, Node.js hay PostgreSQL trên máy thật.
       </p>
       <pre class="bg-slate-900 text-slate-100 p-4 rounded-xl text-xs overflow-x-auto"><code>git clone https://github.com/tql-team/ai-career-coach.git
 cd ai-career-coach
@@ -56,13 +56,13 @@ docker compose logs -f backend</code></pre>
 
     <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-        <h3 class="text-lg font-bold text-slate-900 mb-2">📚 Danh mục Tài liệu Trực tuyến</h3>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">Danh mục Tài liệu Dự án</h3>
         <ul class="space-y-2 text-sm text-indigo-700 font-medium">
           <li>• <a href="https://github.com/tql-team/ai-career-coach/blob/main/README.md" class="hover:underline">README.md — Tổng quan &amp; Hướng dẫn toàn diện</a></li>
           <li>• <a href="./INSTALL.md" class="hover:underline">docs/INSTALL.md — Hướng dẫn biên dịch, cài đặt &amp; gỡ cài đặt</a></li>
           <li>• <a href="./ARCHITECTURE.md" class="hover:underline">docs/ARCHITECTURE.md — Kiến trúc 4 Containers &amp; 7 bảng DB</a></li>
           <li>• <a href="./API.md" class="hover:underline">docs/API.md — Đặc tả 20 REST API Endpoints &amp; Log AI</a></li>
-          <li>• <a href="./CHANGELOG.md" class="hover:underline">docs/CHANGELOG.md — Lịch sử phát hành phiên bản (v0.1.0, v0.2.0)</a></li>
+          <li>• <a href="./CHANGELOG.md" class="hover:underline">docs/CHANGELOG.md — Nhật ký bản phát hành đầu tiên</a></li>
           <li>• <a href="./CONTRIBUTING.md" class="hover:underline">docs/CONTRIBUTING.md — Hướng dẫn Git &amp; Pull Request</a></li>
           <li>• <a href="./THIRD_PARTY_LICENSES.md" class="hover:underline">docs/THIRD_PARTY_LICENSES.md — Giấy phép thư viện bên thứ ba</a></li>
           <li>• <a href="./RELEASE_ANNOUNCEMENT.md" class="hover:underline">docs/RELEASE_ANNOUNCEMENT.md — Thông báo phát hành trên nhóm thư</a></li>
@@ -70,7 +70,7 @@ docker compose logs -f backend</code></pre>
       </div>
 
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-        <h3 class="text-lg font-bold text-slate-900 mb-2">⚖️ Giấy phép Nguồn mở (MIT License)</h3>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">Giấy phép Nguồn mở (MIT License)</h3>
         <p class="text-sm text-slate-600 leading-relaxed">
           Toàn bộ mã nguồn của dự án được cấp phép theo chuẩn <strong>MIT License</strong>. Mọi tệp mã nguồn (<code>.py</code>, <code>.js</code>, <code>.css</code>, <code>.sh</code>) đều đính kèm định danh <code>SPDX-License-Identifier: MIT</code> ở dòng đầu tiên và tương thích hoàn toàn với các thư viện phụ thuộc.
         </p>

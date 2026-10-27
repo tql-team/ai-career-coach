@@ -1,19 +1,14 @@
-# 🌱 AI Career Coach - Hệ Thống Định Hướng Nghề Nghiệp Đa Ngành, Lập Lộ Trình Học Tập & Phỏng Vấn Thử AI
+# AI Career Coach: Trợ lý định hướng nghề nghiệp và luyện phỏng vấn thông minh
 
-[![Version](https://img.shields.io/badge/version-v0.2.0-indigo.svg)](./docs/CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](./LICENSE)
 [![Docker Compose](https://img.shields.io/badge/Docker-4%20Containers-blue.svg)](./docker-compose.yml)
 [![Model](https://img.shields.io/badge/Ollama-Qwen%203.5%3A4b-amber.svg)](https://ollama.com/)
 
-> **Đề án / Bài thi thực hành**: Ứng dụng Trí tuệ Nhân tạo (**LLM Qwen 3.5:4b qua Ollama** kết hợp **Hệ thống Trích xuất Kỹ năng Đa ngành Song ngữ Anh – Việt**) cùng **FastAPI**, **PostgreSQL 15** và **Gamification** hỗ trợ người học ở **tất cả các ngành nghề** phân tích khoảng trống kỹ năng (Skill Gap) từ CV & JD tự do, tự động lập lịch học theo thời gian rảnh (múi giờ Việt Nam `UTC+7`) và luyện phỏng vấn ngẫu nhiên đa vòng theo mô hình chuẩn **STAR**.
->
-> **Đóng gói chuẩn Dockerfile & GNU Make 100%**: Toàn bộ hệ thống gồm **4 thành phần (`career_coach_pg` + `career_coach_ollama` + `career_coach_backend` + `career_coach_frontend`)** đã được đóng gói hoàn chỉnh bằng `back_end/Dockerfile`, `front_end/Dockerfile`, `docker-compose.yml` và `Makefile`. Người chấm bài / người dùng tải về từ Git **không cần cài đặt Python, Node.js, PostgreSQL hay Ollama ngoài máy thật**, chỉ cần chạy `make install` hoặc `docker compose up --build -d`.
-
 ---
 
-## 📌 1. Giới thiệu tổng quan
+## 1. Giới thiệu tổng quan
 
-**AI Career Coach** giải quyết bài toán định hướng nghề nghiệp và huấn luyện kỹ năng cho sinh viên / người đi làm ở mọi lĩnh vực thông qua quy trình khép kín 4 bước:
+**AI Career Coach: Trợ lý định hướng nghề nghiệp và luyện phỏng vấn thông minh** giải quyết bài toán định hướng nghề nghiệp và huấn luyện kỹ năng cho sinh viên / người đi làm ở mọi lĩnh vực thông qua quy trình khép kín 4 bước:
 1. **Đánh giá năng lực hiện tại (Song ngữ Anh – Việt, Đa ngành nghề & Chống file rác)**: Trích xuất tự động kỹ năng chuyên môn, kỹ năng mềm và kinh nghiệm từ file CV PDF tải lên (chỉ chấp nhận `.pdf`, tự động phát hiện và chặn file rác không phải CV) hoặc chọn bộ hồ sơ mẫu đa lĩnh vực. Tự động nhận diện ngôn ngữ của CV (**CV Tiếng Anh trả về 100% kỹ năng Tiếng Anh, CV Tiếng Việt trả về 100% kỹ năng Tiếng Việt**) trên **15+ nhóm ngành lớn** (*CNTT/Phần mềm, Dữ liệu/BA, Tài chính/Kế toán/Kiểm toán, Luật/Pháp chế, F&B/Nhà hàng - Khách sạn, Marketing/Truyền thông, Nhân sự/HR, Kinh doanh/Sales, Logistics/Chuỗi cung ứng, Kỹ thuật/Sản xuất, Y dược, Giáo dục, Thiết kế/Sáng tạo*).
 2. **Phân tích Độ khớp & Kết luận Chuyên sâu (Universal Skill-Gap & JD Analysis)**: So khớp hồ sơ (hỗ trợ đối chiếu chéo song ngữ Anh – Việt và chống khớp nhầm từ khóa ngắn) với vị trí mẫu hoặc **Mô tả công việc (JD) dán tự do của bất kỳ ngành nào**. Chấm điểm theo công thức trọng số, vẽ biểu đồ Radar năng lực theo nhóm ngành, lưu lịch sử phân tích vào PostgreSQL và đưa ra **Báo cáo Kết luận & Đánh giá chuyên sâu** đa chiều.
 3. **Lên lộ trình học tập Cá nhân hóa & Băm giờ thông minh (Smart Study Planner - Múi giờ `UTC+7`)**: Thiết kế các bài học nhúng đích danh từng kỹ năng còn thiếu, tự động cắt nhỏ thời lượng bài học để lấp vừa khít các khung giờ rảnh thực tế của người học và mở khóa đúng giờ (`unlock_time` theo chuẩn giờ Việt Nam `Asia/Ho_Chi_Minh`). Hỗ trợ cập nhật lại lịch rảnh mà vẫn giữ nguyên lộ trình và tiến độ đang học.
@@ -21,7 +16,7 @@
 
 ---
 
-## 🌟 2. Các tính năng cốt lõi & Nâng cấp kỹ thuật đã hoàn thiện (`v0.2.0`)
+## 2. Các tính năng cốt lõi của hệ thống
 
 | Phân hệ | Chi tiết tính năng |
 | :--- | :--- |
@@ -33,7 +28,7 @@
 
 ---
 
-## 🏗️ 3. Kiến trúc hệ thống (4 Containers tự động hoàn toàn)
+## 3. Kiến trúc hệ thống (4 Containers tự động hoàn toàn)
 
 ```mermaid
 flowchart LR
@@ -56,7 +51,7 @@ flowchart LR
 
 ---
 
-## 🚀 4. Hướng dẫn Biên dịch và Cài đặt (Compilation & Installation)
+## 4. Hướng dẫn Biên dịch và Cài đặt (Compilation & Installation)
 
 *(Xem thêm tài liệu chi tiết tại [docs/INSTALL.md](./docs/INSTALL.md)).*
 
@@ -102,7 +97,7 @@ docker build -t ai-career-coach-frontend:latest ./front_end
 
 ---
 
-## 🤖 5. Hướng dẫn Kiểm tra Model AI (`qwen3.5:4b`) đã tải về và đang chạy chưa
+## 5. Hướng dẫn Kiểm tra Model AI (`qwen3.5:4b`) đã tải về và đang chạy chưa
 
 ```bash
 # 1. Kiểm tra danh sách các model AI đã được tải về thành công trong Docker
@@ -123,7 +118,7 @@ Kiểm tra qua HTTP API:
 
 ---
 
-## 📋 6. Hướng dẫn Kiểm tra Log Hệ thống & Log Model AI (Check Logs)
+## 6. Hướng dẫn Kiểm tra Log Hệ thống & Log Model AI (Check Logs)
 
 Toàn bộ các chức năng gọi Model AI (`qwen3.5:4b`) đều in log trực tiếp kèm nhãn nhận diện rõ ràng (`[AI MODEL CALL]`, `[AI CV EXTRACT]`, `[AI JD EXTRACT]`, `[AI JD ADVANCED EXTRACT]`, `[AI SKILL MATCH]`, `[AI STUDY PLAN]`, `[AI INTERVIEW GENERATE]`, `[AI INTERVIEW EVALUATE]`):
 
@@ -151,7 +146,7 @@ docker compose logs --tail=100 backend
 
 ---
 
-## 🗑️ 7. Hướng dẫn Gỡ cài đặt & Dọn dẹp hệ thống (Uninstallation)
+## 7. Hướng dẫn Gỡ cài đặt & Dọn dẹp hệ thống (Uninstallation)
 
 ### Mức 1: Dừng và gỡ Container (Giữ lại dữ liệu Database và Model AI đã tải)
 ```bash
@@ -177,7 +172,7 @@ rm -rf ai-career-coach   # (Trên PowerShell: Remove-Item -Recurse -Force ai-car
 
 ---
 
-## 📡 8. Danh mục 20 API Endpoints trong hệ thống
+## 8. Danh mục 20 API Endpoints trong hệ thống
 
 *(Xem chi tiết tại [docs/API.md](./docs/API.md)).*
 
@@ -206,18 +201,16 @@ rm -rf ai-career-coach   # (Trên PowerShell: Remove-Item -Recurse -Force ai-car
 
 ---
 
-## 📂 9. Cấu trúc Thư mục Dự án (Đã phân nhóm gọn gàng theo chuẩn Mở & Docker)
+## 9. Cấu trúc Thư mục Dự án
 
-Toàn bộ các tệp liên quan đã được gom gọn vào **5 thư mục chuyên biệt** (`.github/`, `back_end/`, `front_end/`, `docs/`, `scripts/`), chỉ giữ lại các tệp điều phối gốc bắt buộc ở thư mục ngoài cùng:
+Toàn bộ các tệp liên quan được phân nhóm vào **5 thư mục chuyên biệt** (`.github/`, `back_end/`, `front_end/`, `docs/`, `scripts/`), chỉ giữ lại các tệp điều phối gốc ở thư mục ngoài cùng:
 
 ```text
 ai-career-coach/
-├── .github/                         # 1. Cấu hình GitHub CI/CD & Mẫu báo lỗi
-│   ├── ISSUE_TEMPLATE/
-│   │   ├── bug_report.md            # Mẫu báo cáo lỗi chuẩn trên GitHub Issues
-│   │   └── feature_request.md       # Mẫu đề xuất tính năng mới
-│   └── workflows/
-│       └── pages.yml                # GitHub Actions tự động xuất bản docs/ lên GitHub Pages
+├── .github/                         # 1. Mẫu báo lỗi & Đề xuất tính năng trên GitHub
+│   └── ISSUE_TEMPLATE/
+│       ├── bug_report.md            # Mẫu báo cáo lỗi chuẩn trên GitHub Issues
+│       └── feature_request.md       # Mẫu đề xuất tính năng mới
 ├── back_end/                        # 2. Toàn bộ Mã nguồn & Đóng gói Backend (FastAPI + AI)
 │   ├── Dockerfile                   # Dockerfile đóng gói Backend (Python 3.11 - Cổng 8000, UTC+7)
 │   ├── .dockerignore                # Loại trừ file thừa khi build image Backend
@@ -237,16 +230,15 @@ ai-career-coach/
 │   ├── server.js                    # HTTP Server Node.js phục vụ giao diện tại cổng 5050 (SPDX MIT)
 │   ├── roles.json                   # Danh mục ngành nghề mẫu
 │   └── sample-profiles.json         # Hồ sơ sinh viên mẫu phục vụ chấm thử nhanh (ID 9991..9993)
-├── docs/                            # 4. Toàn bộ Tài liệu Dự án, Pháp lý, Phiên bản & Website
-│   ├── index.html                   # Trang chủ Website & Cổng tài liệu trực tuyến (GitHub Pages)
+├── docs/                            # 4. Toàn bộ Tài liệu Dự án, Pháp lý & Bản phát hành
+│   ├── index.html                   # Trang tài liệu tổng hợp của dự án
 │   ├── INSTALL.md                   # Hướng dẫn biên dịch, cài đặt, chạy out-of-source & gỡ cài đặt
 │   ├── ARCHITECTURE.md              # Tài liệu kiến trúc 4 Containers & sơ đồ 7 bảng Database
 │   ├── API.md                       # Đặc tả 20 REST API Endpoints & định dạng Log AI
-│   ├── CHANGELOG.md                 # Lịch sử phát hành phiên bản tuần tự (v0.1.0 -> v0.2.0)
+│   ├── CHANGELOG.md                 # Nhật ký phát hành phiên bản đầu tiên
 │   ├── CONTRIBUTING.md              # Hướng dẫn quy trình Git, nhánh & Pull Request cho người mới
 │   ├── THIRD_PARTY_LICENSES.md      # Bảng kiểm tra tương thích giấy phép thư viện bên thứ ba
-│   ├── RELEASE_ANNOUNCEMENT.md      # Thông báo phát hành phiên bản trên Nhóm thư công khai
-│   └── VERSION                      # Phiên bản hiện hành của hệ thống (0.2.0)
+│   └── RELEASE_ANNOUNCEMENT.md      # Thông báo phát hành trên Nhóm thư công khai
 ├── scripts/                         # 5. Công cụ Tự động hóa & Cấu hình Mở rộng
 │   ├── add_spdx_headers.sh          # Script tự động kiểm tra và chèn SPDX-License-Identifier: MIT
 │   ├── docker-compose.gpu.yml       # Cấu hình mở rộng cho phép Ollama sử dụng GPU rời NVIDIA
@@ -261,31 +253,29 @@ ai-career-coach/
 
 ---
 
-## 💬 10. Kênh Công khai để Giao tiếp, Liên lạc & Hỗ trợ Kỹ thuật
+## 10. Kênh Công khai để Giao tiếp, Liên lạc & Hỗ trợ Kỹ thuật
 
 Dự án duy trì đầy đủ các kênh thông tin và giao tiếp công khai để giảng viên, hội đồng chấm thi và cộng đồng người dùng có thể truy cập tài liệu, nhận thông báo phát hành, báo cáo lỗi (Bug Tracker) hoặc đóng góp mã nguồn:
 
-* 🌐 **Website & Cổng Tài liệu Trực tuyến (GitHub Pages)**:  
-  [https://tql-team.github.io/ai-career-coach/](https://tql-team.github.io/ai-career-coach/)
-* 📦 **Kho mã nguồn chính thức (GitHub Repository)**:  
+* **Kho mã nguồn chính thức (GitHub Repository)**:  
   [https://github.com/tql-team/ai-career-coach.git](https://github.com/tql-team/ai-career-coach.git)
-* 🏷️ **Các Bản Phát hành theo Phiên bản Tuần tự (GitHub Releases - `v0.1.0`, `v0.2.0`)**:  
+* **Trang Phát hành Chính thức (GitHub Releases - Bản phát hành đầu tiên)**:  
   [https://github.com/tql-team/ai-career-coach/releases](https://github.com/tql-team/ai-career-coach/releases)
-* 📨 **Nhóm thư Công khai & Thông báo Phát hành (Google Group Mailing List)**:  
+* **Nhóm thư Công khai & Thông báo Phát hành (Google Group Mailing List)**:  
   [https://groups.google.com/g/ai-career-coach-tql](https://groups.google.com/g/ai-career-coach-tql) (`ai-career-coach-tql@googlegroups.com`)  
   *(Xem nội dung thông báo phát hành tại [docs/RELEASE_ANNOUNCEMENT.md](./docs/RELEASE_ANNOUNCEMENT.md)).*
-* 🐛 **Trình Quản lý Lỗi Công khai (Bug Tracker - GitHub Issues)**:  
+* **Trình Quản lý Lỗi Công khai (Bug Tracker - GitHub Issues)**:  
   [https://github.com/tql-team/ai-career-coach/issues](https://github.com/tql-team/ai-career-coach/issues)
-* 🤝 **Kênh Đóng góp Mã nguồn (GitHub Pull Requests & Contributing Guide)**:  
+* **Kênh Đóng góp Mã nguồn (GitHub Pull Requests & Contributing Guide)**:  
   [https://github.com/tql-team/ai-career-coach/pulls](https://github.com/tql-team/ai-career-coach/pulls) | [docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md)
-* 📖 **Cổng Kiểm thử API Trực tiếp (Swagger UI Local)**:  
+* **Cổng Kiểm thử API Trực tiếp (Swagger UI Local)**:  
   [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ---
 
-## ⚖️ 11. Giấy phép Nguồn mở & Mục đích Cấp phép (License)
+## 11. Giấy phép Nguồn mở & Mục đích Cấp phép (License)
 
-* **Tên giấy phép**: Dự án **AI Career Coach** được cấp phép dưới **[Giấy phép MIT (MIT License)](./LICENSE)**.
+* **Tên giấy phép**: Dự án **AI Career Coach: Trợ lý định hướng nghề nghiệp và luyện phỏng vấn thông minh** được cấp phép dưới **[Giấy phép MIT (MIT License)](./LICENSE)**.
 * **Mục đích của giấy phép**: Giấy phép MIT được lựa chọn nhằm khuyến khích tối đa việc học tập, nghiên cứu học thuật, giảng dạy và phát triển phần mềm nguồn mở. Bất kỳ cá nhân hay tổ chức nào cũng được phép tự do sử dụng, sao chép, sửa đổi, tích hợp, xuất bản và phân phối lại mã nguồn của dự án (kể cả cho mục đích thương mại hoặc phi thương mại), với điều kiện duy nhất là giữ nguyên thông báo bản quyền và toàn văn giấy phép tại tệp [`LICENSE`](./LICENSE).
 * **Định danh trong từng tệp mã (`SPDX`)**: Mọi tệp mã nguồn (`.py`, `.js`, `.css`, `.sh`) trong dự án đều có dòng khai báo `# SPDX-License-Identifier: MIT` hoặc `// SPDX-License-Identifier: MIT` ở đầu tệp.
 * **Tương thích thư viện bên thứ ba**: Toàn bộ các thư viện phụ thuộc của dự án đã được rà soát và xác nhận tương thích hoàn toàn với giấy phép MIT tại tệp [`docs/THIRD_PARTY_LICENSES.md`](./docs/THIRD_PARTY_LICENSES.md).

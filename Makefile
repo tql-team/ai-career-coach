@@ -13,7 +13,7 @@ all: build
 
 help:
 	@echo "=================================================================="
-	@echo " AI Career Coach (v0.2.0) - Bảng điều khiển GNU Make & Docker"
+	@echo " AI Career Coach - Bảng điều khiển GNU Make & Docker"
 	@echo "=================================================================="
 	@echo "  make build         : Biên dịch Docker images (Backend & Frontend)"
 	@echo "  make install       : Biên dịch và cài đặt trọn bộ 4 Docker containers"
